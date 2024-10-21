@@ -5,10 +5,10 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Hope : MonoBehaviour
 {
-    //private Rigidbody2D rbA; // A¸ÕÌåµÄRigidbody
-    //public Rigidbody2D rbB; // B¸ÕÌåµÄRigidbody
-    //public float repulsionConstant = -100f; // ÅÅ³âÁ¦³£Êı
-    //public float thresholdDistance = 5f; // ¾àÀëãĞÖµ£¬¾àÀëĞ¡ÓÚÕâ¸öÖµÊ±¿ªÊ¼²úÉúÅÅ³âÁ¦
+    //private Rigidbody2D rbA; // Aåˆšä½“çš„Rigidbody
+    //public Rigidbody2D rbB; // Båˆšä½“çš„Rigidbody
+    //public float repulsionConstant = -100f; // æ’æ–¥åŠ›å¸¸æ•°
+    //public float thresholdDistance = 5f; // è·ç¦»é˜ˆå€¼ï¼Œè·ç¦»å°äºè¿™ä¸ªå€¼æ—¶å¼€å§‹äº§ç”Ÿæ’æ–¥åŠ›
 
     //private void Awake()
     //{
@@ -17,27 +17,27 @@ public class Hope : MonoBehaviour
     //}
     //void FixedUpdate()
     //{
-    //    // ¼ÆËãÁ½¸ÕÌåµÄ¾àÀë
+    //    // è®¡ç®—ä¸¤åˆšä½“çš„è·ç¦»
     //    Vector3 direction = rbB.position - rbA.position;
     //    float distance = direction.magnitude;
 
-    //    // Èç¹û¾àÀëĞ¡ÓÚãĞÖµ£¬¼ÆËãÅÅ³âÁ¦
+    //    // å¦‚æœè·ç¦»å°äºé˜ˆå€¼ï¼Œè®¡ç®—æ’æ–¥åŠ›
     //    if (distance < thresholdDistance && distance > 0f)
     //    {
-    //        // ¼ÆËãÅÅ³âÁ¦´óĞ¡£¬ÅÅ³âÁ¦Óë¾àÀëÆ½·½³É·´±È
+    //        // è®¡ç®—æ’æ–¥åŠ›å¤§å°ï¼Œæ’æ–¥åŠ›ä¸è·ç¦»å¹³æ–¹æˆåæ¯”
     //        float forceMagnitude = repulsionConstant / (distance * distance);
 
-    //        // ½«·½Ïò¹éÒ»»¯£¬µÃµ½·½ÏòÏòÁ¿
+    //        // å°†æ–¹å‘å½’ä¸€åŒ–ï¼Œå¾—åˆ°æ–¹å‘å‘é‡
     //        Vector3 forceDirection = direction.normalized;
 
-    //        // ¶ÔB¸ÕÌåÊ©¼Ó·´·½ÏòµÄÁ¦
+    //        // å¯¹Båˆšä½“æ–½åŠ åæ–¹å‘çš„åŠ›
     //        rbB.AddForce(forceDirection * forceMagnitude, ForceMode2D.Force);
     //    }
     //}
-    private Rigidbody2D aRigidbody;  // aÎïÌåµÄ¸ÕÌå
-    public Collider2D otherRigidbody; //²õ
-    public float gravitationalForce = 100f;  // ÎüÒıÁ¦µÄÇ¿¶È
-    public float distanceThreshold = 5f;    // ÎüÒı¾àÀëµÄãĞÖµ
+    private Rigidbody2D aRigidbody;  // aç‰©ä½“çš„åˆšä½“
+    public Collider2D otherRigidbody; //è‰
+    public float gravitationalForce = 100f;  // å¸å¼•åŠ›çš„å¼ºåº¦
+    public float distanceThreshold = 5f;    // å¸å¼•è·ç¦»çš„é˜ˆå€¼
 
     
     public float speed;
@@ -58,11 +58,11 @@ public class Hope : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        // È·±£Ä¿±êÎïÌåÊÇb£¬²¢ÇÒÓĞRigidbody2D×é¼ş
+        // ç¡®ä¿ç›®æ ‡ç‰©ä½“æ˜¯bï¼Œå¹¶ä¸”æœ‰Rigidbody2Dç»„ä»¶
         Rigidbody2D bRigidbody = other.attachedRigidbody;
         if (bRigidbody != null && bRigidbody != aRigidbody)
         {
-            // ¼ÆËãaºÍbÖ®¼äµÄ·½ÏòºÍ¾àÀë
+            // è®¡ç®—aå’Œbä¹‹é—´çš„æ–¹å‘å’Œè·ç¦»
             Vector2 direction = aRigidbody.position - bRigidbody.position;
             float distance = direction.magnitude;
 
@@ -72,12 +72,12 @@ public class Hope : MonoBehaviour
                 if (distance >= 0.1f)
                 {
 
-                    // ¹éÒ»»¯·½ÏòÏòÁ¿
+                    // å½’ä¸€åŒ–æ–¹å‘å‘é‡
                     direction.Normalize();
 
-                    // ¼ÆËãÒıÁ¦£¬²¢Ê©¼Ó¸øb¸ÕÌå
+                    // è®¡ç®—å¼•åŠ›ï¼Œå¹¶æ–½åŠ ç»™båˆšä½“
                     float num = Mathf.Max(Mathf.Pow(distance, 2), 2);
-                    float forceMagnitude = gravitationalForce / num; // ÒıÁ¦´óĞ¡·´±ÈÓÚ¾àÀëµÄÆ½·½
+                    float forceMagnitude = gravitationalForce / num; // å¼•åŠ›å¤§å°åæ¯”äºè·ç¦»çš„å¹³æ–¹
                     Vector2 force = direction * forceMagnitude;
 
                     bRigidbody.AddForce(force);

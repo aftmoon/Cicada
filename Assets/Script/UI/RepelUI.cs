@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class RepelUI : MonoBehaviour
 {
-    private RectTransform uiElement;    // UI ÔªËØµÄ RectTransform
-    private Collider2D otherRigidbody; // Ä¿±ê¸ÕÌå
-    public float gravitationalForce = 100f;  // ÎüÒıÁ¦µÄÇ¿¶È
-    public float distanceThreshold = 100f;    // ÎüÒıÁ¦µÄ¾àÀëãĞÖµ
+    private RectTransform uiElement;    // UI å…ƒç´ çš„ RectTransform
+    private Collider2D otherRigidbody; // ç›®æ ‡åˆšä½“
+    public float gravitationalForce = 100f;  // å¸å¼•åŠ›çš„å¼ºåº¦
+    public float distanceThreshold = 100f;    // å¸å¼•åŠ›çš„è·ç¦»é˜ˆå€¼
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class RepelUI : MonoBehaviour
 
     private void attract(Collider2D other)
     {
-        // »ñÈ¡ UI ÔªËØµÄÊÀ½ç×ø±ê
+        // è·å– UI å…ƒç´ çš„ä¸–ç•Œåæ ‡
         Vector3 uiWorldPos = uiElement.position;
 
         Rigidbody2D targetRigidbody = other.attachedRigidbody;
@@ -41,26 +41,26 @@ public class RepelUI : MonoBehaviour
         float distance = direction.magnitude;
         
 
-        // ¼ÆËã UI ÔªËØÓë¸ÕÌåÖ®¼äµÄ¾àÀëºÍ·½Ïò
+        // è®¡ç®— UI å…ƒç´ ä¸åˆšä½“ä¹‹é—´çš„è·ç¦»å’Œæ–¹å‘
 
 
         if (targetRigidbody != null)
         {
             //Debug.Log(targetRigidbody.name);
-            // Èç¹û¾àÀëĞ¡ÓÚãĞÖµ£¬Ê©¼ÓÎüÒıÁ¦
+            // å¦‚æœè·ç¦»å°äºé˜ˆå€¼ï¼Œæ–½åŠ å¸å¼•åŠ›
             Debug.Log(distance);
             if (distance <= distanceThreshold && distance > 0.1f)
             {
                 Debug.Log("1111");
-                // ¹éÒ»»¯·½ÏòÏòÁ¿
+                // å½’ä¸€åŒ–æ–¹å‘å‘é‡
                 direction.Normalize();
 
-                // ¼ÆËãÎüÒıÁ¦´óĞ¡£¬ÎüÒıÁ¦·´±ÈÓÚ¾àÀëµÄÆ½·½
+                // è®¡ç®—å¸å¼•åŠ›å¤§å°ï¼Œå¸å¼•åŠ›åæ¯”äºè·ç¦»çš„å¹³æ–¹
                 float forceMagnitude = gravitationalForce / Mathf.Max(distance * distance, 1f);
                 Vector2 force = direction * forceMagnitude;
 
-                // Ê©¼ÓÎüÒıÁ¦µ½¸ÕÌå
-                targetRigidbody.AddForce(-force);  // ÎüÒıÁ¦·½ÏòÊÇ¸ºµÄ£¬Ê¹¸ÕÌå¿¿½ü UI ÔªËØ
+                // æ–½åŠ å¸å¼•åŠ›åˆ°åˆšä½“
+                targetRigidbody.AddForce(-force);  // å¸å¼•åŠ›æ–¹å‘æ˜¯è´Ÿçš„ï¼Œä½¿åˆšä½“é è¿‘ UI å…ƒç´ 
                 
             }
         }

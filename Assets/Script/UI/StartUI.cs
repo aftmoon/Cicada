@@ -4,19 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 public class StartUI : MonoBehaviour
 {
-    public Button startButton;  // ¹ØÁªUI°´Å¥
-    public Cicada cicada;  // ¹ØÁªĞèÒªÒÆ¶¯µÄÎïÌå
+    public Button startButton;  // å…³è”UIæŒ‰é’®
+    public Cicada cicada;  // å…³è”éœ€è¦ç§»åŠ¨çš„ç‰©ä½“
 
     void Awake()
     {
-        // Ìí¼Ó°´Å¥µã»÷ÊÂ¼ş
+        // æ·»åŠ æŒ‰é’®ç‚¹å‡»äº‹ä»¶
         startButton.onClick.AddListener(OnStartButtonClicked);
     }
 
-    // µ±µã»÷°´Å¥Ê±´¥·¢µÄÊÂ¼ş
+    // å½“ç‚¹å‡»æŒ‰é’®æ—¶è§¦å‘çš„äº‹ä»¶
     void OnStartButtonClicked()
     {
-        // µ÷ÓÃÎïÌå¿ªÊ¼ÒÆ¶¯µÄ·½·¨
+        // è°ƒç”¨ç‰©ä½“å¼€å§‹ç§»åŠ¨çš„æ–¹æ³•
         cicada.StartMoving();
     }
 }

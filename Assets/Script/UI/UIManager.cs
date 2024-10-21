@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject uiPrefab; // ÄãµÄ UI Ô¤ÖÆÌå
-    public int uiCount = 5; // Éú³ÉµÄ UI ÊıÁ¿
-    public float verticalSpacing = 100f; // UI ÔªËØÖ®¼äµÄ´¹Ö±¼ä¾à
+    public GameObject uiPrefab; // ä½ çš„ UI é¢„åˆ¶ä½“
+    public int uiCount = 5; // ç”Ÿæˆçš„ UI æ•°é‡
+    public float verticalSpacing = 100f; // UI å…ƒç´ ä¹‹é—´çš„å‚ç›´é—´è·
 
     private Canvas canvas;
 
@@ -19,21 +19,21 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        // Éú³É UI ÔªËØ
+        // ç”Ÿæˆ UI å…ƒç´ 
         for (int i = 0; i < uiCount; i++)
         {
-            // ´´½¨ UI ÔªËØ²¢ÉèÖÃÎª Canvas µÄ×Ó¶ÔÏó
+            // åˆ›å»º UI å…ƒç´ å¹¶è®¾ç½®ä¸º Canvas çš„å­å¯¹è±¡
             GameObject uiElement = Instantiate(uiPrefab, canvas.transform);
             RectTransform rectTransform = uiElement.GetComponent<RectTransform>();
 
-            // ÉèÖÃÎ»ÖÃ
+            // è®¾ç½®ä½ç½®
             rectTransform.anchoredPosition = new Vector2(0, -i * verticalSpacing);
-            //Debug.Log($"Generated UI Element at position: {rectTransform.anchoredPosition}"); // ´òÓ¡Éú³ÉÎ»ÖÃ
+            //Debug.Log($"Generated UI Element at position: {rectTransform.anchoredPosition}"); // æ‰“å°ç”Ÿæˆä½ç½®
 
-            // Ìí¼Ó UI ÍÏ×§¹¦ÄÜ
+            // æ·»åŠ  UI æ‹–æ‹½åŠŸèƒ½
             uiElement.AddComponent<DragUI>();
 
-            // Ìí¼Ó UI ÅÅ³â¹¦ÄÜ
+            // æ·»åŠ  UI æ’æ–¥åŠŸèƒ½
             uiElement.AddComponent<RepelUI>();
         }
     }

@@ -16,7 +16,7 @@ public class Drag : MonoBehaviour
     private void Update()
     {
         Vector3 screenPos = Input.mousePosition;
-        screenPos.z = Camera.main.transform.position.z * -1; // ÉèÖÃzÖµ
+        screenPos.z = Camera.main.transform.position.z * -1; // è®¾ç½®zå€¼
         mousePos = Camera.main.ScreenToWorldPoint(screenPos);
         //Debug.Log("Mouse Position: " + mousePos);
     }

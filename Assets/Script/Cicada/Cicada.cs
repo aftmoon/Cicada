@@ -7,7 +7,7 @@ public class Cicada : MonoBehaviour
     Rigidbody2D rb;
     private bool isMoving = false;
 
-    [Header("基本参数")]
+    [Header("鍩烘湰鍙傛暟")]
     public float speed;
 
     private void Awake()

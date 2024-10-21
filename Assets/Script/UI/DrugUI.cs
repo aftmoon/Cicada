@@ -9,26 +9,26 @@ public class DragUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        canvas = FindObjectOfType<Canvas>(); // 找到父级 Canvas
+        canvas = FindObjectOfType<Canvas>(); // 鎵惧埌鐖剁骇 Canvas
     }
 
-    // 当开始拖动时触发
+    // 褰撳紑濮嬫嫋鍔ㄦ椂瑙﹀彂
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // 可以在这里添加任何你希望在拖动开始时执行的逻辑
+        // 鍙互鍦ㄨ繖閲屾坊鍔犱换浣曚綘甯屾湜鍦ㄦ嫋鍔ㄥ紑濮嬫椂鎵ц鐨勯�昏緫
     }
 
-    // 当拖动时触发
+    // 褰撴嫋鍔ㄦ椂瑙﹀彂
     public void OnDrag(PointerEventData eventData)
     {
-        // 使用 eventData.delta 来控制位置的偏移
+        // 浣跨敤 eventData.delta 鏉ユ帶鍒朵綅缃殑鍋忕Щ
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
-    // 当结束拖动时触发
+    // 褰撶粨鏉熸嫋鍔ㄦ椂瑙﹀彂
     public void OnEndDrag(PointerEventData eventData)
     {
-        // 可以在这里添加任何你希望在拖动结束时执行的逻辑
+        // 鍙互鍦ㄨ繖閲屾坊鍔犱换浣曚綘甯屾湜鍦ㄦ嫋鍔ㄧ粨鏉熸椂鎵ц鐨勯�昏緫
     }
 }
 
