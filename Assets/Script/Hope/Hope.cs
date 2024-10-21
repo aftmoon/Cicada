@@ -42,7 +42,6 @@ public class Hope : MonoBehaviour
     
     public float speed;
 
-
     private void Awake()
     {
         aRigidbody = GetComponent<Rigidbody2D>();
