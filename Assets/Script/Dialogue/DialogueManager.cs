@@ -7,59 +7,37 @@ public class DialogueManager : MonoBehaviour
 {
     public GameObject dialogueBox;//Display or hide
     public Text dialogueText, nameText;
-    public bool dialogeEnd = false;
+    public static bool dialogeEnd = false;
 
     [TextArea(1, 3)]
     public string[] dialagueLines;
-    [SerializeField] private int currentLine;
+    [SerializeField] private int currentLine = 0;
 
     public bool isbreak = true;
-    //private bool sleep = false;
-    CicadaAnimation cicadaAnimation;
 
-    private void Start()
+    private void OnEnable()
     {
+        currentLine = 0;
         dialogueText.text = dialagueLines[currentLine];
-        cicadaAnimation = FindAnyObjectByType<CicadaAnimation>();
         dialogueBox.SetActive(false);
-
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        //Debug.Log(dialogeEnd);
-        if (cicadaAnimation != null)
+        Debug.Log(dialogueBox.active);
+        if (dialogueBox.active && (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)))
         {
-            isbreak = !cicadaAnimation.breakEnd;
-        }
-
-        if(!isbreak && !dialogeEnd) {
-            //if (!sleep)
-            //{
-            //    System.Threading.Thread.Sleep(200);
-            //    sleep = true;
-            //}
-            dialogueBox.SetActive(true);
-        }
-
-
-        if (dialogueBox.activeInHierarchy)
-        {
-            if (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space))
+            currentLine++;
+            dialogueText.text = dialagueLines[currentLine - 2];
+            if (currentLine == dialagueLines.Length)
             {
-                currentLine++;
-                if (currentLine < dialagueLines.Length)
-                {
-                    dialogueText.text = dialagueLines[currentLine];
-                }
-                else
-                {
-                    dialogueBox.SetActive(false);//box hide
-                    dialogeEnd = true;
-                }
+                dialogueBox.SetActive(false);
+                dialogeEnd = true;
+                Debug.Log("dialogeEnd = true;");
 
             }
+
         }
-        
     }
+
 }

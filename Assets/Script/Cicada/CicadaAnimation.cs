@@ -1,48 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CicadaAnimation : MonoBehaviour
 {
     private Animator anim;
-    public bool breakEnd = false;
-    public int count = 0;
+    public GameObject CicadaSprite;
+    public GameObject Cicada;
+    public GameObject Dialogue;
+    public Sprite Cicada02;
+    public int FirCount = 4;
+    public int SecCount = 3;
     private int clickCount = 0;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        Cicada.SetActive(false);
+        Dialogue.SetActive(false);
     }
 
     private void Update()
     {
-        if (!breakEnd && (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)) && count < 4)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)))
         {
-           clickCount++;
-           if(clickCount > 3)
+            clickCount++;
+            anim.ResetTrigger("IsClick");
+            anim.SetTrigger("IsClick");
+            if (clickCount > FirCount)
             {
-                clickCount = 0;
-                //SetAnimation();
-                anim.SetBool("break", true);
-                anim.SetTrigger("click");
-                //breakEnd = true;
-                count++;
+              GetComponent<SpriteRenderer>().sprite = Cicada02;
+                
+            }
+            if (clickCount > FirCount + SecCount)
+            {
+                Cicada.SetActive(true);
+                //CicadaSprite.SetActive(false);
+                Dialogue.SetActive(true);
+
             }
         }
-        else
+        if (DialogueManager.dialogeEnd)
         {
-            anim.SetBool("break", false);
-            //Debug.Log(count);
-            if(count >= 3)
-            {
-                breakEnd = true;
-            }
+            Cicada.GetComponent<Animator>().SetTrigger("Falling");
+            Debug.Log("SetTrigger(\"Falling\");");
         }
 
     }
 
-    //public void SetAnimation()
-    //{
-
-    //}
 }
