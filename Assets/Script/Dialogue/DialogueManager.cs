@@ -24,18 +24,23 @@ public class DialogueManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        Debug.Log(dialogueBox.active);
-        if (dialogueBox.active && (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)))
+        //Debug.Log(dialogueBox.active);
+        if (dialogueBox.activeInHierarchy && (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)))
         {
-            currentLine++;
-            dialogueText.text = dialagueLines[currentLine - 2];
-            if (currentLine == dialagueLines.Length)
+            
+            //Debug.Log(currentLine);
+            if (currentLine < dialagueLines.Length) 
+            {
+                dialogueText.text = dialagueLines[currentLine];
+            }
+            else
             {
                 dialogueBox.SetActive(false);
                 dialogeEnd = true;
-                Debug.Log("dialogeEnd = true;");
+                //Debug.Log("dialogeEnd = true;");
 
             }
+            currentLine++;
 
         }
     }

@@ -13,6 +13,8 @@ public class CicadaAnimation : MonoBehaviour
     public int FirCount = 4;
     public int SecCount = 3;
     private int clickCount = 0;
+    bool DialogeFlag = false;
+    bool CicadaFlag = false;
 
     private void Awake()
     {
@@ -28,23 +30,37 @@ public class CicadaAnimation : MonoBehaviour
             clickCount++;
             anim.ResetTrigger("IsClick");
             anim.SetTrigger("IsClick");
-            if (clickCount > FirCount)
+            anim.SetInteger("clickCount", clickCount);
+            //Debug.Log(clickCount);
+            if (clickCount > FirCount && !DialogeFlag)
             {
               GetComponent<SpriteRenderer>().sprite = Cicada02;
                 
+                
             }
+            
             if (clickCount > FirCount + SecCount)
             {
-                Cicada.SetActive(true);
-                //CicadaSprite.SetActive(false);
-                Dialogue.SetActive(true);
+                
+                if (!DialogeFlag)
+                {
+                    Cicada.SetActive(true);
+                    Dialogue.SetActive(true);
+                    DialogeFlag = true;
+
+                }
+                    //CicadaSprite.SetActive(false);
+                   
 
             }
+            //if(clickCount  SecCount)
         }
-        if (DialogueManager.dialogeEnd)
+        if (DialogueManager.dialogeEnd && !CicadaFlag)
         {
             Cicada.GetComponent<Animator>().SetTrigger("Falling");
-            Debug.Log("SetTrigger(\"Falling\");");
+            CicadaFlag = true;
+            
+            //Debug.Log("SetTrigger(\"Falling\");");
         }
 
     }
