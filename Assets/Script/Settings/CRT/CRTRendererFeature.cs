@@ -282,6 +282,11 @@ namespace CRTFilter
             }
         }
 
+        /// <summary>
+        /// 执行渲染通道之前调用
+        /// 创建临时渲染目标纹理
+        /// 为Excute提前准备需要的RenderTexture或其他变量
+        /// </summary>
         class CRTRenderPass : ScriptableRenderPass
         {
             private const string PROFTAG = "CRTFilter";
@@ -291,6 +296,7 @@ namespace CRTFilter
             private RenderTargetIdentifier cameraRT;
             private RenderTargetIdentifier tempRT;
 
+            // 定义渲染的位置
             public CRTRenderPass()
             {
                 renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
@@ -312,7 +318,8 @@ namespace CRTFilter
                 tempRT = new RenderTargetIdentifier(textureId);
                 ConfigureTarget(tempRT);
             }
-
+          
+            // 核心方法 实现renderPass的逻辑
             public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
             {
                 if (material == null)
@@ -335,6 +342,8 @@ namespace CRTFilter
                 cmd.Clear();
 
                 CommandBufferPool.Release(cmd);
+                
+
             }
         }
     }

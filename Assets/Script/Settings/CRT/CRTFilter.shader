@@ -1,5 +1,4 @@
 Shader "Mine/CRTFilter"
-//Shader "Hidden/CRTFilter"
 {
     Properties
     {
