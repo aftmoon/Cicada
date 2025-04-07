@@ -28,8 +28,9 @@ public class HopeInteract : MonoBehaviour
 
     public float anixForce;
     public float upForce;
-    internal Rigidbody2D HopeRig;
-    internal Rigidbody2D PlayRig;
+    public float playUp;
+    internal Rigidbody HopeRig;
+    internal Rigidbody PlayRig;
 
     void Awake()
     {
@@ -38,8 +39,8 @@ public class HopeInteract : MonoBehaviour
         anim_Hope = Hope.GetComponent<Animator>();
         anim_Player = Player.gameObject.GetComponent<Animator>();
         // 初始化
-        HopeRig = Hope.GetComponent<Rigidbody2D>();
-        PlayRig = Player.GetComponent<Rigidbody2D>();
+        HopeRig = Hope.GetComponent<Rigidbody>();
+        PlayRig = Player.GetComponent<Rigidbody>();
         outDistance = new OutDistance() { p01 = this }; ;
         inMidDistance = new InMidDistance() { p01 = this }; ;
         inDistance = new InDistance() { p01 = this }; ;
@@ -57,7 +58,7 @@ public class HopeInteract : MonoBehaviour
         float distance = Mathf.Max(dis, disV3);
         CurrentDis newDis = curDis;
         Debug.Log("dis = " + dis);
-        if (5 < distance )
+        if (10 < distance )
         {
             Debug.Log("state = " + inMidDistance);
             curDis = inMidDistance;
@@ -108,21 +109,23 @@ public class InDistance : CurrentDis
         Vector2 direction = p01.Aims[0].transform.position - p01.Hope.transform.position;
         direction.Normalize();
         p01.HopeRig.AddForce(direction * p01.upForce);
-        p01.PlayRig.AddForce(direction * p01.upForce);
+        float y = p01.Hope.transform.position.y;
+        float newY = Mathf.MoveTowards(p01.Player.transform.position.y, y, p01.playUp*Time.deltaTime);
+        p01.Player.transform.position = new Vector3(p01.Player.transform.position.x, newY, p01.Player.transform.position.z);
 
 
     //    float hopeSpeedX = 5f; // Hope 在 X 轴上的速度
     //float hopeSpeedY = 6f; // Hope 在 Y 轴上的速度
 
-    //        Vector3 targetPos = p01.Aims[0].transform.position;
-    //        Vector3 currentPos = p01.Hope.transform.position;
-    //        // 计算 Hope 在 X 和 Y 方向的目标位置
-    //        float newX = Mathf.MoveTowards(currentPos.x, targetPos.x, hopeSpeedX * Time.deltaTime);
-    //        float newY = Mathf.MoveTowards(currentPos.y, targetPos.y, hopeSpeedY * Time.deltaTime);
+        //        Vector3 targetPos = p01.Aims[0].transform.position;
+        //        Vector3 currentPos = p01.Hope.transform.position;
+        //        // 计算 Hope 在 X 和 Y 方向的目标位置
+        //        float newX = Mathf.MoveTowards(currentPos.x, targetPos.x, hopeSpeedX * Time.deltaTime);
+        //        float newY = Mathf.MoveTowards(currentPos.y, targetPos.y, hopeSpeedY * Time.deltaTime);
 
-    //        // 只在 X 轴或 Y 轴上分别移动
-    //        p01.Hope.transform.position = new Vector3(newX, newY, currentPos.z);
-    //        p01.Player.transform.position += Vector3.up * hopeSpeedY * Time.deltaTime;
+        //        // 只在 X 轴或 Y 轴上分别移动
+        //        p01.Hope.transform.position = new Vector3(newX, newY, currentPos.z);
+        //        p01.Player.transform.position += Vector3.up * hopeSpeedY * Time.deltaTime;
     }
 }
 
@@ -132,18 +135,27 @@ public class InMidDistance : CurrentDis
 {
     public override void Interact()
     {
-    //float hopeSpeedX = 20f; // Hope 在 X 轴上的速度
-    //float hopeSpeedY = 10f; // Hope 在 Y 轴上的速度
-    //float FallenSpeedY = 5f; // Player 在 Y 轴上的速度
-    //    Vector3 targetPos = p01.Player.transform.position;
-    //    Vector3 currentPos = p01.Hope.transform.position;
-    //    // 计算 Hope 在 X 和 Y 方向的目标位置
-    //    float newX = Mathf.MoveTowards(currentPos.x, targetPos.x, hopeSpeedX * Time.deltaTime);
-    //    float newY = Mathf.MoveTowards(currentPos.y, targetPos.y, hopeSpeedY * Time.deltaTime);
+        Vector2 direction = p01.Player.transform.position - p01.Hope.transform.position;
+        direction.Normalize();
+        p01.HopeRig.AddForce(direction * p01.upForce);
+        //p01.PlayRig.AddForce(direction * p01.upForce);
+        //float y = p01.Hope.transform.position.y;
+        //float newY = Mathf.MoveTowards(p01.Player.transform.position.y, y, Time.deltaTime);
 
-    //    // 只在 X 轴或 Y 轴上分别移动
-    //    p01.Hope.transform.position = new Vector3(newX, newY, currentPos.z);
-    //    p01.Player.transform.position -= Vector3.up * FallenSpeedY * Time.deltaTime;
+        //p01.Player.transform.position = new Vector3(p01.Hope.transform.position.x, newY, p01.Hope.transform.position.z);
+
+        //float hopeSpeedX = 20f; // Hope 在 X 轴上的速度
+        //float hopeSpeedY = 10f; // Hope 在 Y 轴上的速度
+        //float FallenSpeedY = 5f; // Player 在 Y 轴上的速度
+        //    Vector3 targetPos = p01.Player.transform.position;
+        //    Vector3 currentPos = p01.Hope.transform.position;
+        //    // 计算 Hope 在 X 和 Y 方向的目标位置
+        //    float newX = Mathf.MoveTowards(currentPos.x, targetPos.x, hopeSpeedX * Time.deltaTime);
+        //    float newY = Mathf.MoveTowards(currentPos.y, targetPos.y, hopeSpeedY * Time.deltaTime);
+
+        //    // 只在 X 轴或 Y 轴上分别移动
+        //    p01.Hope.transform.position = new Vector3(newX, newY, currentPos.z);
+        //    p01.Player.transform.position -= Vector3.up * FallenSpeedY * Time.deltaTime;
     }
 }
 
